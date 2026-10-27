@@ -2,7 +2,7 @@
   "name": "portifolio",
   "version": "1.0.0",
   "description": "",
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -22,6 +22,7 @@
     "tailwind-merge": "^3.7.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.3",
     "autoprefixer": "^10.6.2",
     "postcss": "^8.5.32",
     "tailwindcss": "^4.3.3"
