@@ -1,10 +1,11 @@
+"use client";
 import React from 'react';
 import { motion } from 'framer-motion';
 
 const services = [
-  { title: "UI/UX Design", description: "Crafting intuitive and aesthetically pleasing digital interfaces." },
-  { title: "Frontend Development", description: "Building scalable, high-performance web applications." },
+  { title: "3D Direction", description: "Art direction for renders, product visuals, and immersive scenes." },
   { title: "Motion Design", description: "Adding life to digital products with smooth, purposeful motion." },
+  { title: "Interactive Web", description: "Scroll-driven, WebGL-flavored experiences built to perform." },
   { title: "Brand Identity", description: "Defining unique visual languages that resonate with audiences." },
   { title: "Consulting", description: "Strategic advice on technology and design implementation." },
 ];
@@ -26,10 +27,10 @@ const itemVariants = {
 
 const ServicesSection = () => {
   return (
-    <section className="py-20 bg-[#0C0C0C] text-white">
+    <section id="services" className="py-24 sm:py-32 bg-primary text-secondary scroll-mt-16">
       <div className="container mx-auto px-6">
-        <h2 className="text-4xl md:text-6xl font-bold mb-16 text-center text-white">Services</h2>
-        <motion.div 
+        <h2 className="hero-heading font-bold uppercase tracking-tight text-4xl md:text-6xl mb-16 text-center">Services</h2>
+        <motion.div
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
           variants={containerVariants}
           initial="hidden"
@@ -42,8 +43,8 @@ const ServicesSection = () => {
               variants={itemVariants}
               className="p-8 border border-white/10 hover:border-white/30 transition-colors bg-white/5 rounded-lg"
             >
-              <h3 className="text-2xl font-semibold mb-4 text-white">{service.title}</h3>
-              <p className="text-gray-400">{service.description}</p>
+              <h3 className="text-2xl font-semibold mb-4 text-secondary">{service.title}</h3>
+              <p className="font-light text-secondary/70">{service.description}</p>
             </motion.div>
           ))}
         </motion.div>

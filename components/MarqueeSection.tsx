@@ -1,5 +1,5 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionStyle } from "framer-motion";
 import { useRef } from "react";
 
 const images = [
@@ -23,11 +23,38 @@ const images = [
   "https://motionsites.ai/assets/hero-new-era-preview-CocuDUm9.gif",
   "https://motionsites.ai/assets/hero-wealth-preview-B70idl_u.gif",
   "https://motionsites.ai/assets/hero-luminex-preview-CxOP7ce6.gif",
-  "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif"
+  "https://motionsites.ai/assets/hero-celestia-preview-0yO3jXO8.gif",
 ];
 
 const row1 = images.slice(0, 11);
 const row2 = images.slice(11);
+
+// Rows are duplicated 3x for the marquee; images are decorative texture,
+// so they're hidden from assistive tech entirely (WCAG 1.1.1).
+const Row = ({
+  items,
+  className,
+  style,
+}: {
+  items: string[];
+  className?: string;
+  style?: MotionStyle;
+}) => (
+  <motion.div style={style} className={`marquee-row flex gap-3 ${className ?? ""}`}>
+    {[...items, ...items, ...items].map((src, i) => (
+      <img
+        key={i}
+        src={src}
+        alt=""
+        aria-hidden="true"
+        width={420}
+        height={270}
+        className="w-[420px] h-[270px] rounded-2xl object-cover"
+        loading="lazy"
+      />
+    ))}
+  </motion.div>
+);
 
 export default function MarqueeSection() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -36,17 +63,13 @@ export default function MarqueeSection() {
   const x2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
 
   return (
-    <section ref={containerRef} className="bg-[#0C0C0C] pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden">
-      <motion.div style={{ x: x1 }} className="flex gap-3 mb-3">
-        {[...row1, ...row1, ...row1].map((src, i) => (
-          <img key={i} src={src} className="w-[420px] h-[270px] rounded-2xl object-cover" loading="lazy" />
-        ))}
-      </motion.div>
-      <motion.div style={{ x: x2 }} className="flex gap-3">
-        {[...row2, ...row2, ...row2].map((src, i) => (
-          <img key={i} src={src} className="w-[420px] h-[270px] rounded-2xl object-cover" loading="lazy" />
-        ))}
-      </motion.div>
+    <section
+      ref={containerRef}
+      className="bg-primary pt-24 sm:pt-32 md:pt-40 pb-10 overflow-hidden"
+      aria-label="Project showcase"
+    >
+      <Row items={row1} className="mb-3" style={{ x: x1 }} />
+      <Row items={row2} style={{ x: x2 }} />
     </section>
   );
 }

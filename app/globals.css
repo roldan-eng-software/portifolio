@@ -1,17 +1,38 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* Design tokens — single source of truth (was dead code in tailwind.config.cjs under v3) */
+@theme {
+  --font-sans: var(--font-kanit), ui-sans-serif, system-ui, sans-serif;
+  --color-primary: #0c0c0c;
+  --color-secondary: #d7e2ea;
+  --color-muted: #8b97a3;
+}
 
 @layer base {
   body {
-    @apply bg-[#0C0C0C] text-[#D7E2EA];
+    @apply bg-primary text-secondary antialiased;
+  }
+
+  /* Designed focus ring for dark premium surfaces */
+  :focus-visible {
+    outline: 2px solid var(--color-secondary);
+    outline-offset: 4px;
+    border-radius: 2px;
   }
 }
 
 @layer utilities {
   .hero-heading {
-    background: linear-gradient(180deg, #646973 0%, #BBCCD7 100%);
+    background: linear-gradient(180deg, #646973 0%, #bbccd7 100%);
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+  }
+}
+
+/* State-preserving reduced motion: kill the scroll-driven marquee drift */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-row {
+    transform: none !important;
   }
 }
